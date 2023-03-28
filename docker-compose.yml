@@ -56,7 +56,20 @@ services:
       OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]'
     networks:
       - opensearch-net
-
+  jupyter:
+    hostname: jupyter
+    stdin_open: true
+    tty: true
+    container_name: jupyter
+    build:
+      context: .
+    volumes:
+      - ./:/home/Loka/Project
+    ports:
+      - '8888:8888'
+    entrypoint: jupyter lab --allow-root --no-browser --ip=0.0.0.0
+    networks:
+      - opensearch-net
 volumes:
   opensearch-data1:
   opensearch-data2:
